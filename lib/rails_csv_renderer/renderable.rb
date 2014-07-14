@@ -33,8 +33,18 @@ module RailsCsvRenderer
       columns = model.column_names
 
       model.class_variable_set(:@@dynamic_generated_csv_methods, true)
-      model.class_eval "class << self; def csv_header; [\"#{ columns.map { |column_name| model.human_attribute_name(column_name) }.join('", "') }\"]; end; end"
-      model.class_eval "def csv_row; [#{ columns.join(', ') }]; end"
+      model.class_eval(%Q{
+        class << self
+          def csv_header
+            ["#{ columns.map { |column_name| model.human_attribute_name(column_name) }.join('", "') }"]
+          end
+        end
+      })
+      model.class_eval(%Q{
+        def csv_row
+         [#{ columns.join(', ') }]
+       end
+      })
     end
 
     def is_active_record?
