@@ -1,0 +1,14 @@
+ru:
+  activerecord:
+    attributes:
+      person:
+        id: ID
+        first_name: Имя
+        last_name: Фамилия
+        full_name: Полное имя
+        cats: Коты
+      cat:
+        id: ID
+        name: Кличка
+        person_id: ID хозяина
+
