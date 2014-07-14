@@ -10,7 +10,7 @@ module RailsCsvRenderer
       csv_options = default_csv_options.merge(options[:csv_options] || {})
 
       if is_active_record?
-        if !(model.respond_to?(:csv_header) || model.respond_to?(:csv_row)) || model.class_variable_defined?(:@@dynamic_generated_csv_methods)
+        if !(model.respond_to?(:csv_header) || model.method_defined?(:csv_row)) || model.class_variable_defined?(:@@dynamic_generated_csv_methods)
           define_csv_methods(options)
         end
       end
@@ -48,11 +48,26 @@ module RailsCsvRenderer
     end
 
     def is_active_record?
-      is_a?(ActiveRecord::Relation) || (present? && first.is_a?(ActiveRecord::Base))
+      is_a?(ActiveRecord::Relation) ||
+      (present? && first.is_a?(ActiveRecord::Base)) ||
+      try(:decorator_class).respond_to?(:column_names)
     end
 
     def model
-      @model ||= is_a?(ActiveRecord::Relation) ? klass : first.class
+      if is_active_record?
+        is_ar_array = ->(obj) { obj.present? && obj.first.is_a?(ActiveRecord::Base)}
+        is_drapper_collection = ->(obj) { try(:decorator_class) }
+
+        @model ||=
+          case self
+          when ActiveRecord::Relation
+            klass
+          when is_ar_array
+            first.class
+          when is_drapper_collection
+            decorator_class
+          end
+      end
     end
 
     def default_csv_options
