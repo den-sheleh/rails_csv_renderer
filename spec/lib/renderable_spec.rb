@@ -60,7 +60,7 @@ describe RailsCsvRenderer::Renderable do
 
         context 'with csv options' do
           it 'includes columns and methods with configured separators' do
-            options = { col_sep: "\t", row_sep: "\r\n" }
+            options = { csv_options: { col_sep: "\t", row_sep: "\r\n" } }
             expect(renderable_collection.to_custom_csv(options)).to eql "Id\tFull name\r\n1\tJohn Smith\r\n2\tAdam Kowalczyk\r\n3\tDennis Menace\r\n"
           end
         end
@@ -72,6 +72,23 @@ describe RailsCsvRenderer::Renderable do
           it 'includes csv with all model columns' do
             owner.cats << Cat.first
             expect(renderable_collection.to_custom_csv).to eql "Id,Name,Person\n1,Kitty,#{ owner.id }\n"
+          end
+
+          context 'options with :columns' do
+            it 'includes columns and methods in specific order' do
+              options = { columns: [:name] }
+              expect(renderable_collection.to_custom_csv(options)).to eql "Name\nKitty\n"
+            end
+
+            context 'with localized name of atributes' do
+              before { I18n.locale = :ru }
+              after { I18n.locale = :en }
+
+              it 'includes columns and methods in specific order with localized headerd' do
+                options = { columns: [:name] }
+                expect(renderable_collection.to_custom_csv(options)).to eql "Кличка\nKitty\n"
+              end
+            end
           end
         end
       end
