@@ -52,6 +52,28 @@ Will render a CSV file similar to:
   </tr>
 </table>
 
+### Options
+
+You can pass few options at call of rendrer:
+
+* *:filename* - Name of file. Optional
+* *:csv_options* - Options for CSV generator. [Availible options](http://www.ruby-doc.org/stdlib-2.1.2/libdoc/csv/rdoc/CSV.html#method-c-new). Optional
+* *:columns* - Array of variables and methods. Name of columns will be created based on your translations. Optional
+
+Example
+
+```ruby
+class ReportsController < ApplicationController
+  def index
+    @reports = Report.all
+
+    respond_to do |format|
+      format.csv  { render csv: @reports, filename: 'custom-reports.csv', csv_options: { col_sep: '\t' }, columns: [:created_at, :title] }
+    end
+  end
+end
+```
+
 ### Localize column's names
 
 If you have translations for model's attributes under scope [:activerecord, :attributes, \*model_name\*] names of columns will be
@@ -59,11 +81,11 @@ automatically translated.
 
 ### Customize CSV
 
-To customize your CSV file you should add next methods to model **csv_header**(class method), **csv_row**.
+To customize your CSV file with different methods and name of columns you should add next methods to model **csv_header**(class method), **csv_row**.
 
-**csv_header** should return array with column's titles.
+* **csv_header** should return array with column's titles.
 
-**csv_row** should return array with values for columns.
+* **csv_row** should return array with values for columns.
 
 ```ruby
 class Cat < ActiveRecord::Base
