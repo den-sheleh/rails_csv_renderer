@@ -1,5 +1,3 @@
-require "rails_csv_renderer/version"
+require "rails_csv_renderer/renderer"
 
-module RailsCsvRenderer
-  # Your code goes here...
-end
+RailsCsvRenderer::Renderer.initialize!
