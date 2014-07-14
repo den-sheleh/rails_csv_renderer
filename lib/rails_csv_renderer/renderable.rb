@@ -7,7 +7,7 @@ module RailsCsvRenderer
     # Options is configuration set for generated CSV file
 
     def to_custom_csv(options = {})
-      csv_options = default_csv_options.merge(options)
+      csv_options = default_csv_options.merge(options[:csv_options] || {})
 
       if is_active_record?
         if !(model.respond_to?(:csv_header) || model.respond_to?(:csv_row)) || model.class_variable_defined?(:@@dynamic_generated_csv_methods)
@@ -30,7 +30,7 @@ module RailsCsvRenderer
     private
 
     def define_csv_methods(options)
-      columns = model.column_names
+      columns = options[:columns] || model.column_names
 
       model.class_variable_set(:@@dynamic_generated_csv_methods, true)
       model.class_eval(%Q{
