@@ -1,7 +1,8 @@
-require 'rails/activerecord'
+require 'active_record'
+require 'csv'
 
 module RailsCsvRenderer
-  class Renderable
+  module Renderable
     # Converts an collection of active records to CSV formatted string
     # Options is configuration set for generated CSV file
 
@@ -37,11 +38,11 @@ module RailsCsvRenderer
     end
 
     def is_active_record?
-      (const_defined?(ActiveRecord::Relation) && is_a?(ActiveRecord::Relation)) || (present? && first.is_a?(ActiveRecord::Base))
+      is_a?(ActiveRecord::Relation) || (present? && first.is_a?(ActiveRecord::Base))
     end
 
     def model
-      @model ||= (const_defined?(ActiveRecord::Relation) && is_a?(ActiveRecord::Relation)) ? klass : first.class
+      @model ||= is_a?(ActiveRecord::Relation) ? klass : first.class
     end
 
     def default_csv_options
