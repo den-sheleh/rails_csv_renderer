@@ -24,7 +24,7 @@ Or install it yourself as:
 
 ## Usage
 
-The rails_csv_renderer allows you to render any collection as CSV data.
+The rails_csv_renderer allows you to render any collection as CSV data. Result CSV includes all columns of model with localized column's names
 
 ```ruby
 class ReportsController < ApplicationController
