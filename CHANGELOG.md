@@ -1,5 +1,8 @@
 # Changelog
 
+## 0.2.3
+  * Update dependencies and README
+
 ## 0.2.2
   * Fix: show CSV header for empty Drapper collections(decorated AR collections)
 
