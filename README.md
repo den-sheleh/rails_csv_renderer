@@ -6,12 +6,6 @@
 
 Custom CSV renderer for ActiveRecord collections
 
-## Rails & Ruby Versions Supported
-
-*Rails:* 4.x
-
-*Ruby:* 2.x
-
 ## Installation
 
 Add this line to your application's Gemfile:
