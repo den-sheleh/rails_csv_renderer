@@ -58,7 +58,7 @@ You can pass few options at call of rendrer:
 
 * *:filename* - Name of file. Optional
 * *:csv_options* - Options for CSV generator. [Availible options](http://www.ruby-doc.org/stdlib-2.1.2/libdoc/csv/rdoc/CSV.html#method-c-new). Optional
-* *:columns* - Array of variables and methods. Name of columns will be created based on your translations. Optional
+* *:columns* - Array of variables and methods. Title of columns will be created based on your translations. In this case you should not define methods in model. Optional
 
 Example
 
