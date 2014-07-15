@@ -1,5 +1,9 @@
 # rails_csv_renderer
 
+[![Build Status](https://travis-ci.org/den-sheleh/rails_csv_renderer.svg?branch=master)](https://travis-ci.org/den-sheleh/rails_csv_renderer)
+[![Code Climate](https://codeclimate.com/github/den-sheleh/rails_csv_renderer.png)](https://codeclimate.com/github/den-sheleh/rails_csv_renderer)
+[![Gem Version](https://badge.fury.io/rb/rails_csv_renderer.svg)](http://badge.fury.io/rb/rails_csv_renderer)
+
 Custom CSV renderer for ActiveRecord collections
 
 ## Rails & Ruby Versions Supported
