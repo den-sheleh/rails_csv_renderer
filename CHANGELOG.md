@@ -1,5 +1,8 @@
 # Changelog
 
+## 0.2.4
+  * Fix: init renderer
+
 ## 0.2.3
   * Update dependencies and README
 
